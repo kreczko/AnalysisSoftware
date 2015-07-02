@@ -18,7 +18,8 @@ Particle::Particle() :
 		particleCharge(0), //
 		distanceFromInteractionPointInCM(999999), //
 		distanceFromInteractionPointInCM_wrt_to_BeamSpot(999999), //
-		fourvector(0., 0., 0., 0.) {
+		fourvector(0., 0., 0., 0.),
+		decay_products_() {
 
 }
 
@@ -27,7 +28,8 @@ Particle::Particle(const Particle& particle) :
 		particleCharge(particle.charge()), //
 		distanceFromInteractionPointInCM(particle.d0()), //
 		distanceFromInteractionPointInCM_wrt_to_BeamSpot(particle.d0_wrtBeamSpot()), //
-		fourvector(particle.getFourVector()) {
+		fourvector(particle.getFourVector()),
+		decay_products_(particle.getDecay()) {
 
 }
 
@@ -36,7 +38,8 @@ Particle::Particle(double energy, double px, double py, double pz) :
 		particleCharge(0), //
 		distanceFromInteractionPointInCM(99999), //
 		distanceFromInteractionPointInCM_wrt_to_BeamSpot(999999), //
-		fourvector(px, py, pz, energy) {
+		fourvector(px, py, pz, energy),
+		decay_products_() {
 }
 
 Particle::~Particle() {
@@ -227,5 +230,13 @@ string Particle::toString() const {
 	out << setw(30) << "d0 =" << setw(30) << "d0_bs" << setw(30) << "  " << setw(30) << "  " << "\n";
 	out << setw(30) << d0() << setw(30) << d0_wrtBeamSpot() << setw(30) << "  " << setw(30) << "  " << "\n";
 	return out.str();
+}
+
+void Particle::addDecayProduct(const ParticlePointer p){
+	decay_products_.push_back(p);
+}
+
+const ParticleCollection Particle::getDecay() const {
+	return decay_products_;
 }
 }

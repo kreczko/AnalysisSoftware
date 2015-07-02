@@ -67,11 +67,15 @@ public:
 	double angle(const ParticlePointer otherParticle) const;
 	virtual std::string toString() const;
 
+	void addDecayProduct(const ParticlePointer p);
+	const ParticleCollection getDecay() const;
+
 protected:
 	double particleMass, particleCharge;
 	double distanceFromInteractionPointInCM;
 	double distanceFromInteractionPointInCM_wrt_to_BeamSpot;
 	FourVector fourvector;
+	ParticleCollection decay_products_;
 
 };
 
