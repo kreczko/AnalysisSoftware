@@ -15,7 +15,14 @@ public:
 
 	virtual void reconstruct(const EventPtr event);
 
+
 private:
+	// something like that, but correct solutions use different particles (jets, met, etc)
+	// so in the end, solutions should collapse
+	void reconstructLeptonicTops(const EventPtr event);
+	void reconstructHadronicTops(const EventPtr event);
+
+
 	std::vector<TtbarHypothesisPointer> solutions_;
 };
 
